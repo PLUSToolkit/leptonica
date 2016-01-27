@@ -3459,7 +3459,7 @@ l_uint64  limit, ratio;
         return 0;
     }
 
-    limit = sqrt(n);
+    limit = sqrtl(n);
     for (div = 3; div < limit; div += 2) {
        ratio = n / div;
        if (ratio * div == n) {
