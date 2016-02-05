@@ -85,30 +85,62 @@ set(leptonica_hdr
 add_library                     (leptonica ${LIBRARY_TYPE} ${leptonica_src} ${leptonica_hdr})
 set_target_properties           (leptonica PROPERTIES OUTPUT_NAME lept${VERSION_MAJOR}${VERSION_MINOR})
 set_target_properties           (leptonica PROPERTIES DEBUG_OUTPUT_NAME lept${VERSION_MAJOR}${VERSION_MINOR}d)
+
+set(Leptonica_LIBRARIES leptonica)
+
 if (NOT STATIC)
     target_compile_definitions  (leptonica PRIVATE -DLIBLEPT_EXPORTS)
 endif()
-if (GIF_LIBRARY)
+
+if (GIF_FOUND)
+    include_directories(${GIF_INCLUDE_DIRS})
+    set(Leptonica_LIBRARIES ${Leptonica_LIBRARIES} ${GIF_LIBRARY})
+    set(Leptonica_INCLUDE_DIRS ${Leptonica_INCLUDE_DIRS} ${GIF_INCLUDE_DIRS})
     target_link_libraries       (leptonica ${GIF_LIBRARY})
 endif()
-if (JPEG_LIBRARY)
+
+if (JPEG_FOUND)
+    include_directories(${JPEG_INCLUDE_DIRS})
+    set(Leptonica_LIBRARIES ${Leptonica_LIBRARIES} ${JPEG_LIBRARY})
+    set(Leptonica_INCLUDE_DIRS ${Leptonica_INCLUDE_DIRS} ${JPEG_INCLUDE_DIRS})
     target_link_libraries       (leptonica ${JPEG_LIBRARY})
 endif()
+
 if (JP2K_FOUND)
+    include_directories(${JP2K_INCLUDE_DIRS})
+    set(Leptonica_LIBRARIES ${Leptonica_LIBRARIES} ${JP2K_LIBRARIES})
+    set(Leptonica_INCLUDE_DIRS ${Leptonica_INCLUDE_DIRS} ${JP2K_INCLUDE_DIRS})
     target_link_libraries       (leptonica ${JP2K_LIBRARIES})
 endif()
-if (PNG_LIBRARY)
-    target_link_libraries       (leptonica ${PNG_LIBRARY})
+
+if (PNG_FOUND)
+    include_directories(${PNG_INCLUDE_DIRS})
+    set(Leptonica_LIBRARIES ${Leptonica_LIBRARIES} ${PNG_LIBRARIES})
+    set(Leptonica_INCLUDE_DIRS ${Leptonica_INCLUDE_DIRS} ${PNG_INCLUDE_DIRS})
+    target_link_libraries       (leptonica ${PNG_LIBRARIES})
 endif()
-if (TIFF_LIBRARY)
+
+if (TIFF_FOUND)
+    include_directories(${TIFF_INCLUDE_DIRS})
+    set(Leptonica_LIBRARIES ${Leptonica_LIBRARIES} ${TIFF_LIBRARY})
+    set(Leptonica_INCLUDE_DIRS ${Leptonica_INCLUDE_DIRS} ${TIFF_INCLUDE_DIRS})
     target_link_libraries       (leptonica ${TIFF_LIBRARY})
 endif()
+
 if (WEBP_FOUND)
+    include_directories(${WEBP_INCLUDE_DIRS})
+    set(Leptonica_LIBRARIES ${Leptonica_LIBRARIES} ${WEBP_LIBRARIES})
+    set(Leptonica_INCLUDE_DIRS ${Leptonica_INCLUDE_DIRS} ${WEBP_INCLUDE_DIRS})
     target_link_libraries       (leptonica ${WEBP_LIBRARIES})
 endif()
-if (ZLIB_LIBRARY)
+
+if (NOT PNG_FOUND AND ZLIB_FOUND)
+    include_directories(${ZLIB_INCLUDE_DIRS})
+    set(Leptonica_LIBRARIES ${Leptonica_LIBRARIES} ${ZLIB_LIBRARY})
+    set(Leptonica_INCLUDE_DIRS ${Leptonica_INCLUDE_DIRS} ${ZLIB_INCLUDE_DIRS})
     target_link_libraries       (leptonica ${ZLIB_LIBRARY})
 endif()
+
 if (UNIX)
     target_link_libraries       (leptonica m)
 endif()
@@ -116,3 +148,9 @@ export(TARGETS leptonica FILE ${CMAKE_BINARY_DIR}/LeptonicaTargets.cmake)
 
 ################################################################################
 
+configure_file(
+    ${CMAKE_SOURCE_DIR}/cmake/templates/LeptonicaConfig-version.cmake.in
+    ${CMAKE_BINARY_DIR}/LeptonicaConfig-version.cmake @ONLY)
+configure_file(
+    ${CMAKE_SOURCE_DIR}/cmake/templates/LeptonicaConfig.cmake.in
+    ${CMAKE_BINARY_DIR}/LeptonicaConfig.cmake @ONLY)

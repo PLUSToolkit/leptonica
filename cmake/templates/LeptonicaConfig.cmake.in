@@ -18,8 +18,29 @@
 #      - Leptonica_VERSION_MINOR         : Minor version part of Leptonica_VERSION: "@VERSION_MINOR@"
 #
 # ===================================================================================
+if(@GIF_FOUND@)
+  FIND_PACKAGE(GIF)
+endif()
 
-include(${CMAKE_CURRENT_LIST_DIR}/LeptonicaTargets.cmake)
+if(@JPEG_FOUND@)
+  FIND_PACKAGE(JPEG)
+endif()
+
+if(@PNG_FOUND@)
+  SET(PNG_DIR "@PNG_DIR@")
+  FIND_PACKAGE(PNG NO_MODULE)
+endif()
+
+if(@TIFF_FOUND@)
+  FIND_PACKAGE(TIFF)
+endif()
+
+if(NOT @PNG_FOUND@ AND @ZLIB_FOUND@)
+  SET(ZLIB_ROOT "@ZLIB_ROOT@")
+  FIND_PACKAGE(ZLIB)
+endif()
+
+INCLUDE(${CMAKE_CURRENT_LIST_DIR}/LeptonicaTargets.cmake)
 
 # ======================================================
 #  Version variables:
@@ -34,10 +55,10 @@ SET(Leptonica_VERSION_MINOR     @VERSION_MINOR@)
 # ======================================================
 
 # Provide the include directories to the caller
-set(Leptonica_INCLUDE_DIRS @INCLUDE_DIR@)
+SET(Leptonica_INCLUDE_DIRS @Leptonica_INCLUDE_DIRS@)
 
 # ====================================================================
 # Link libraries:
 # ====================================================================
 
-set(Leptonica_LIBRARIES leptonica)
+SET(Leptonica_LIBRARIES @Leptonica_LIBRARIES@)

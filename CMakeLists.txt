@@ -46,10 +46,9 @@ set(VERSION_PLAIN ${VERSION_MAJOR}.${VERSION_MINOR})
 
 find_package(GIF)
 find_package(JPEG)
-find_package(PNG)
+find_package(PNG NO_MODULE)
 find_package(TIFF)
 find_package(ZLIB)
-
 find_package(PkgConfig)
 
 if (PKG_CONFIG_FOUND)
@@ -83,14 +82,7 @@ include(Configure)
 
 configure_file(${AUTOCONFIG_SRC} ${AUTOCONFIG} @ONLY)
 
-set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/src)
-
-configure_file(
-    ${CMAKE_SOURCE_DIR}/cmake/templates/LeptonicaConfig-version.cmake.in
-    ${CMAKE_BINARY_DIR}/LeptonicaConfig-version.cmake @ONLY)
-configure_file(
-    ${CMAKE_SOURCE_DIR}/cmake/templates/LeptonicaConfig.cmake.in
-    ${CMAKE_BINARY_DIR}/LeptonicaConfig.cmake @ONLY)
+set(Leptonica_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/src)
 
 ###############################################################################
 #
