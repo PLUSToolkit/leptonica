@@ -36,8 +36,8 @@ if(@TIFF_FOUND@)
 endif()
 
 if(NOT @PNG_FOUND@ AND @ZLIB_FOUND@)
-  SET(ZLIB_ROOT "@ZLIB_ROOT@")
-  FIND_PACKAGE(ZLIB)
+  SET(zlib_DIR "@zlib_DIR@")
+  FIND_PACKAGE(zlib NO_MODULE)
 endif()
 
 INCLUDE(${CMAKE_CURRENT_LIST_DIR}/LeptonicaTargets.cmake)

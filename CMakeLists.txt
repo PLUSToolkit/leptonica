@@ -49,7 +49,7 @@ find_package(JPEG)
 find_package(PNG NO_MODULE)
 find_package(TIFF)
 if( NOT PNG_FOUND )
-  find_package(ZLIB)
+  find_package(zlib NO_MODULE)
 endif()
 find_package(PkgConfig)
 
