@@ -46,11 +46,8 @@ set(VERSION_PLAIN ${VERSION_MAJOR}.${VERSION_MINOR})
 
 find_package(GIF)
 find_package(JPEG)
-find_package(PNG NO_MODULE)
 find_package(TIFF)
-if( NOT PNG_FOUND )
-  find_package(zlib NO_MODULE)
-endif()
+find_package(VTK NO_MODULE PATHS ${VTK_DIR} COMPONENTS vtkzlib vtkpng)
 find_package(PkgConfig)
 
 if (PKG_CONFIG_FOUND)
