@@ -86,10 +86,6 @@ add_library                     (leptonica ${LIBRARY_TYPE} ${leptonica_src} ${le
 set_target_properties           (leptonica PROPERTIES OUTPUT_NAME lept${VERSION_MAJOR}${VERSION_MINOR})
 set_target_properties           (leptonica PROPERTIES DEBUG_OUTPUT_NAME lept${VERSION_MAJOR}${VERSION_MINOR}d)
 
-IF( UNIX AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" )
-  SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-fPIC")
-ENDIF()
-
 set(Leptonica_LIBRARIES leptonica)
 
 if (NOT STATIC)
