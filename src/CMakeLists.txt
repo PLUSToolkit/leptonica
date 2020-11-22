@@ -127,13 +127,6 @@ if (WEBP_FOUND)
     target_link_libraries       (leptonica ${WEBP_LIBRARIES})
 endif()
 
-if (VTK_FOUND)
-    include_directories(${VTK_INCLUDE_DIRS})
-    set(Leptonica_LIBRARIES ${Leptonica_LIBRARIES} ${VTK_LIBRARIES})
-    set(Leptonica_INCLUDE_DIRS ${Leptonica_INCLUDE_DIRS} ${VTK_INCLUDE_DIRS})
-    target_link_libraries       (leptonica ${VTK_LIBRARIES})
-endif()
-
 if (UNIX)
     target_link_libraries       (leptonica m)
 endif()
